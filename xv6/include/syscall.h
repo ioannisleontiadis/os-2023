@@ -22,4 +22,5 @@
 #define SYS_close 21
 #define SYS_getpinfo 22
 #define SYS_getfavnum 23
-#define SYS_halt 24 
+#define SYS_halt 24
+#define SYS_getcount 25

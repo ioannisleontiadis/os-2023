@@ -6,6 +6,8 @@
 #include "mmu.h"
 #include "proc.h"
 
+extern int syscalls_count[100];
+
 int sys_fork(void) { return fork(); }
 
 int sys_exit(void) {
@@ -97,4 +99,17 @@ int sys_uptime(void) {
 }
 
 int sys_getfavnum(void) { return 14; }
-int sys_halt(void) { outw(0x604, 0x2000); }
+
+int sys_halt(void) {
+    outw(0x604, 0x2000);
+    return 0;
+}
+
+int sys_getcount(void) {
+    int syscall;
+
+    if (argint(0, &syscall) < 0) {
+        return -1;
+    }
+    return syscalls_count[syscall];
+}

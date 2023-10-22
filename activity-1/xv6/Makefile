@@ -58,7 +58,7 @@ endif
 TOOLPREFIX = i386-elf-
 
 # Using native tools (e.g., on X86 Linux)
-#TOOLPREFIX =
+# TOOLPREFIX =
 
 CC = $(TOOLPREFIX)gcc
 AS = $(TOOLPREFIX)gas
@@ -180,6 +180,7 @@ USER_PROGS=\
 	zombie\
 	block\
 	shutdown\
+	clear\
 
 UPROGS := $(addprefix fs/,$(USER_PROGS))
 

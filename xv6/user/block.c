@@ -37,6 +37,10 @@ int main(int argc, char *argv[]) {
             printf(1, "getfavnum was called %d times\n", getcount(23));
         }
         break;
+    case 4:
+        int pid = killrandom();
+        printf(1, "killed process %d\n", pid);
+        break;
     default:
         printf(2, "not implemented\n");
     }

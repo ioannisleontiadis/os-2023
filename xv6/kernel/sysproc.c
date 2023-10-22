@@ -7,6 +7,7 @@
 #include "proc.h"
 
 extern int syscalls_count[100];
+extern int random(int max);
 
 int sys_fork(void) { return fork(); }
 
@@ -112,4 +113,21 @@ int sys_getcount(void) {
         return -1;
     }
     return syscalls_count[syscall];
+}
+
+int sys_killrandom(void) {
+    int count = 0;
+    int pid, check;
+
+    while(1){
+        pid = random(NPROC);
+        if (pid != 1 && pid != 0) {
+            check = kill(pid);
+        }
+        if (check != -1){
+            break;
+        }
+    }
+
+    return pid;
 }

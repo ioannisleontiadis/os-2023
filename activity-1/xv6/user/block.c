@@ -24,6 +24,23 @@ int main(int argc, char *argv[]) {
     case 2:
         printf(1, "my favorite number is %d\n", getfavnum());
         break;
+    case 3:
+        printf(1, "getfavnum was called %d times\n", getcount(23));
+        printf(1, "calling getfavnum\n");
+        getfavnum();
+        printf(1, "getfavnum was called %d times\n", getcount(23));
+        if (fork() == 0) {
+            printf(1, "calling getfavnum from another process\n");
+            getfavnum();
+        } else {
+            wait();
+            printf(1, "getfavnum was called %d times\n", getcount(23));
+        }
+        break;
+    case 4:
+        int pid = killrandom();
+        printf(1, "killed process %d\n", pid);
+        break;
     default:
         printf(2, "not implemented\n");
     }

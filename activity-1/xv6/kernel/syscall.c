@@ -130,6 +130,8 @@ extern int sys_uptime(void);
 extern int sys_getpinfo(void);
 extern int sys_getfavnum(void);
 extern int sys_halt(void);
+extern int sys_getcount(void);
+extern int sys_killrandom(void);
 
 static int (*syscalls[])(void) = {
     [SYS_fork] sys_fork,           [SYS_exit] sys_exit,
@@ -144,13 +146,17 @@ static int (*syscalls[])(void) = {
     [SYS_link] sys_link,           [SYS_mkdir] sys_mkdir,
     [SYS_close] sys_close,         [SYS_getpinfo] sys_getpinfo,
     [SYS_getfavnum] sys_getfavnum, [SYS_halt] sys_halt,
+    [SYS_getcount] sys_getcount,   [SYS_killrandom] sys_killrandom,
 };
+
+int syscalls_count[100];
 
 void syscall(void) {
     int num;
 
     num = proc->tf->eax;
     if (num > 0 && num < NELEM(syscalls) && syscalls[num]) {
+        syscalls_count[num]++;
         proc->tf->eax = syscalls[num]();
     } else {
         cprintf("%d %s: unknown sys call %d\n", proc->pid, proc->name, num);

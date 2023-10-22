@@ -6,6 +6,9 @@
 #include "mmu.h"
 #include "proc.h"
 
+extern int syscalls_count[100];
+extern int random(int max);
+
 int sys_fork(void) { return fork(); }
 
 int sys_exit(void) {
@@ -97,4 +100,34 @@ int sys_uptime(void) {
 }
 
 int sys_getfavnum(void) { return 14; }
-int sys_halt(void) { outw(0x604, 0x2000); }
+
+int sys_halt(void) {
+    outw(0x604, 0x2000);
+    return 0;
+}
+
+int sys_getcount(void) {
+    int syscall;
+
+    if (argint(0, &syscall) < 0) {
+        return -1;
+    }
+    return syscalls_count[syscall];
+}
+
+int sys_killrandom(void) {
+    int count = 0;
+    int pid, check;
+
+    while(1){
+        pid = random(NPROC);
+        if (pid != 1 && pid != 0) {
+            check = kill(pid);
+        }
+        if (check != -1){
+            break;
+        }
+    }
+
+    return pid;
+}

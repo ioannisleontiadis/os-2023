@@ -97,3 +97,4 @@ int sys_uptime(void) {
 }
 
 int sys_getfavnum(void) { return 14; }
+int sys_halt(void) { outw(0x604, 0x2000); }

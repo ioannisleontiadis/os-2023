@@ -129,6 +129,7 @@ extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_getpinfo(void);
 extern int sys_getfavnum(void);
+extern int sys_halt(void);
 
 static int (*syscalls[])(void) = {
     [SYS_fork] sys_fork,           [SYS_exit] sys_exit,
@@ -142,7 +143,7 @@ static int (*syscalls[])(void) = {
     [SYS_mknod] sys_mknod,         [SYS_unlink] sys_unlink,
     [SYS_link] sys_link,           [SYS_mkdir] sys_mkdir,
     [SYS_close] sys_close,         [SYS_getpinfo] sys_getpinfo,
-    [SYS_getfavnum] sys_getfavnum,
+    [SYS_getfavnum] sys_getfavnum, [SYS_halt] sys_halt,
 };
 
 void syscall(void) {

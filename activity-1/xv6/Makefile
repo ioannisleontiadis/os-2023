@@ -178,6 +178,7 @@ USER_PROGS=\
 	wc\
 	zombie\
 	block\
+	shutdown\
 
 UPROGS := $(addprefix fs/,$(USER_PROGS))
 

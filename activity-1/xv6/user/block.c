@@ -21,6 +21,9 @@ int main(int argc, char *argv[]) {
             printf(1, "process %d could not be killed\n", pid);
         }
         break;
+    case 2:
+        printf(1, "my favorite number is %d\n", getfavnum());
+        break;
     default:
         printf(2, "not implemented\n");
     }

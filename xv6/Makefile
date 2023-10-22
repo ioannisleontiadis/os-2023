@@ -177,6 +177,7 @@ USER_PROGS=\
 	usertests\
 	wc\
 	zombie\
+	block\
 
 UPROGS := $(addprefix fs/,$(USER_PROGS))
 

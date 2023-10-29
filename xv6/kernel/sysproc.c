@@ -5,9 +5,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
-
-extern int syscalls_count[100];
-extern int random(int max);
+#include "random.c"
 
 int sys_fork(void) { return fork(); }
 
@@ -107,6 +105,7 @@ int sys_halt(void) {
 }
 
 int sys_getcount(void) {
+    extern int syscalls_count[100];
     int syscall;
 
     if (argint(0, &syscall) < 0) {
@@ -116,15 +115,30 @@ int sys_getcount(void) {
 }
 
 int sys_killrandom(void) {
-    int count = 0;
-    int pid, check;
+    int pid = -1;
+    struct proc *tokill;
 
-    while(1){
-        pid = random(NPROC);
-        if (pid != 1 && pid != 0) {
-            check = kill(pid);
+    for (;;) {
+        int procs[NPROC] = {-1};
+        int n = -1;
+
+        acquire(&ptable.lock);
+        for (struct proc *p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+            if ((p->state == SLEEPING || p->state == RUNNABLE) &&
+                p->pid != proc->parent->pid && proc->pid != p->pid &&
+                p->pid > 2) {
+                n++;
+                procs[n] = p;
+            }
         }
-        if (check != -1){
+        release(&ptable.lock);
+
+        if (n == -1)
+            break;
+
+        tokill = procs[random(n)];
+        if (tokill->killed == 0 && kill(tokill->pid) == 0) {
+            pid = tokill->pid;
             break;
         }
     }

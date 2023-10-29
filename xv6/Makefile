@@ -54,7 +54,7 @@ FSIMAGE := fs.img
 endif
 
 # Cross-compiling (e.g., on Mac OS X)
-TOOLPREFIX = i386-elf-
+# TOOLPREFIX = i386-elf-
 
 # Using native tools (e.g., on X86 Linux)
 # TOOLPREFIX =

@@ -5,7 +5,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
-#include "random.c"
+#include "random.h"
 
 int sys_fork(void) { return fork(); }
 

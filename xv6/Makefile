@@ -44,6 +44,7 @@ OBJS := \
 	kobj/uart.o\
 	kobj/vectors.o\
 	kobj/vm.o\
+	kobj/random.o\
 	$(XOBJS)
 
 ifneq ("$(MEMFS)","")

@@ -28,6 +28,7 @@ int getfavnum(void);
 int halt(void);
 int getcount(int);
 int killrandom(void);
+int settickets(int);
 
 // ulib.c
 int stat(char *, struct stat *);

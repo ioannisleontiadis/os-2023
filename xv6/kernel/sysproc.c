@@ -145,3 +145,15 @@ int sys_killrandom(void) {
 
     return pid;
 }
+
+int sys_settickets(void) {
+    int n;
+
+    if (argint(0, &n) < 0) {
+        return -1;
+    }
+
+    proc->tickets = n;
+    
+    return 0;
+}

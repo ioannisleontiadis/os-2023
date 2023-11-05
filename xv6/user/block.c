@@ -78,6 +78,10 @@ void block3(int n) {
     printf(1, "\n");
 }
 
+void block4() {
+    settickets(10);
+}
+
 int main(int argc, char *argv[]) {
     int id;
 
@@ -97,6 +101,9 @@ int main(int argc, char *argv[]) {
         break;
     case 3:
         block3(atoi(argv[2]));
+        break;
+    case 4:
+        block4();
         break;
     default:
         printf(2, "not implemented\n");

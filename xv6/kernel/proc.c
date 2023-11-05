@@ -92,6 +92,7 @@ void userinit(void) {
     p->cwd = namei("/");
 
     p->state = RUNNABLE;
+    p->tickets = 1;
 }
 
 // Grow current process's memory by n bytes.
@@ -144,6 +145,7 @@ int fork(void) {
 
     pid = np->pid;
     np->state = RUNNABLE;
+    np->tickets = proc->tickets;
     safestrcpy(np->name, proc->name, sizeof(proc->name));
     return pid;
 }

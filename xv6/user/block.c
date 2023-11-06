@@ -78,9 +78,7 @@ void block3(int n) {
     printf(1, "\n");
 }
 
-void block4() {
-    settickets(10);
-}
+void block4() { settickets(10); }
 
 int main(int argc, char *argv[]) {
     int id;

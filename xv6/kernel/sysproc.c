@@ -154,6 +154,6 @@ int sys_settickets(void) {
     }
 
     proc->tickets = n;
-    
+
     return 0;
 }

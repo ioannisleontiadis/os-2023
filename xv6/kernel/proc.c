@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "random.h"
 
 struct ptable_type ptable; /* initialize process table */
 
@@ -255,9 +256,24 @@ void scheduler(void) {
 
         // Loop over process table looking for process to run.
         acquire(&ptable.lock);
+
+        int ttickets = 0;
+        for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+            if (p->state == RUNNABLE) {
+                ttickets += p->tickets;
+            }
+        }
+
+        int wticket = random(ttickets);
+        int base = 0;
         for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
             if (p->state != RUNNABLE)
                 continue;
+
+            if (base + p->tickets <= wticket) {
+                base += p->tickets;
+                continue;
+            }
 
             // Switch to chosen process.  It is the process's job
             // to release ptable.lock and then reacquire it
@@ -276,6 +292,7 @@ void scheduler(void) {
             // Process is done running for now.
             // It should have changed its p->state before coming back.
             proc = 0;
+            break;
         }
         release(&ptable.lock);
     }

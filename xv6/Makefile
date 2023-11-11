@@ -181,6 +181,7 @@ USER_PROGS=\
 	block\
 	shutdown\
 	clear\
+	lotteryschedtest\
 
 UPROGS := $(addprefix fs/,$(USER_PROGS))
 

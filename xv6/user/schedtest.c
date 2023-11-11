@@ -49,7 +49,7 @@ int find_pid(struct pstat *pstat, int pid) {
 }
 
 // Uncomment the below line after you've implemented the "settickets" system
-// call #define TICKETS
+#define TICKETS
 
 int main(int argc, char *argv[]) {
 
